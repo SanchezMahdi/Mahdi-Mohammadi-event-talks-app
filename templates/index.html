@@ -33,6 +33,16 @@
           <span id="status-text">Checking feed...</span>
         </div>
 
+        <!-- Theme Toggle Switch (Dark/Light Mode) -->
+        <div class="theme-toggle-container" title="Farbschema wechseln (Hell/Dunkel)">
+          <span class="theme-label" aria-hidden="true">☀️</span>
+          <label class="switch" for="theme-toggle">
+            <input type="checkbox" id="theme-toggle" aria-label="Farbschema umschalten">
+            <span class="slider round"></span>
+          </label>
+          <span class="theme-label" aria-hidden="true">🌙</span>
+        </div>
+
         <!-- Refresh Button with Spinner -->
         <button id="refresh-btn" class="btn btn-primary refresh-btn" aria-label="Refresh release notes">
           <span class="btn-spinner hidden" id="refresh-spinner" aria-hidden="true">

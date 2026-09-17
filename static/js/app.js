@@ -24,6 +24,7 @@
     refreshSpinner: document.getElementById('refresh-spinner'),
     refreshIcon: document.getElementById('refresh-icon'),
     refreshBtnLabel: document.getElementById('refresh-btn-label'),
+    themeToggle: document.getElementById('theme-toggle'),
     statusText: document.getElementById('status-text'),
     feedStatus: document.getElementById('feed-status'),
     searchInput: document.getElementById('search-input'),
@@ -608,8 +609,36 @@
     });
   }
 
+  // --- Theme Management ---
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (el.themeToggle) {
+      el.themeToggle.checked = (theme === 'dark');
+    }
+  }
+
+  function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      applyTheme(savedTheme);
+    } else {
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      applyTheme(prefersDark ? 'dark' : 'light');
+    }
+
+    if (el.themeToggle) {
+      el.themeToggle.addEventListener('change', (e) => {
+        const newTheme = e.target.checked ? 'dark' : 'light';
+        applyTheme(newTheme);
+        localStorage.setItem('theme', newTheme);
+        showToast(newTheme === 'dark' ? 'Dunkelmodus aktiviert 🌙' : 'Hellmodus aktiviert ☀️', 2000);
+      });
+    }
+  }
+
   // --- Initialization ---
   function init() {
+    initTheme();
     initListeners();
     fetchReleaseNotes(false);
   }
